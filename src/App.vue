@@ -17,9 +17,19 @@
 </template>
 
 <script>
+import header from 'components/header/header';
+
 export default {
-  name: 'app'
+  data () {
+    return {
+      seller: {}
+    };
+  },
+  components: {
+    'v-header': header
+  }
 };
+
 </script>
 
 <style>
