@@ -3,17 +3,31 @@
 import Vue from 'vue';
 import App from './App';
 import VueRouter from 'vue-router';
+import goods from './components/goods/goods';
+import ratings from './components/ratings/ratings';
+import seller from './components/seller/seller';
 
 Vue.use(VueRouter);
 
-import router from './router';
-
 Vue.config.productionTip = false;
+
+var router = new VueRouter({
+  routes: [{
+    path: '/goods',
+    component: goods
+  }, {
+    path: '/ratings',
+    component: ratings
+  }, {
+    path: '/seller',
+    component: seller
+  }],
+  linkActiveClass: 'active'
+});
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   template: '<App/>',
   components: { App }
-});
+}).$mount('#app');
