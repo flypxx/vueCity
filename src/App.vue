@@ -27,8 +27,8 @@ export default {
     };
   },
   created () {
-    axios.get('../data.json').then((res) => {
-      this.seller = res.data.seller;
+    axios.get('api/seller').then((res) => {
+      this.seller = res.data;
     });
   },
   components: {
