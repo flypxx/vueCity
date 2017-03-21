@@ -3,9 +3,9 @@
 import Vue from 'vue';
 import App from './App';
 import VueRouter from 'vue-router';
-import goods from './components/goods/goods';
-import ratings from './components/ratings/ratings';
-import seller from './components/seller/seller';
+import goods from 'components/goods/goods';
+import ratings from 'components/ratings/ratings';
+import seller from 'components/seller/seller';
 
 Vue.use(VueRouter);
 
@@ -29,5 +29,9 @@ var router = new VueRouter({
 new Vue({
   router,
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  }
 }).$mount('#app');
+
+router.push('goods');
