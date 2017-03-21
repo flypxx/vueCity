@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <v-header></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
@@ -38,5 +38,14 @@ export default {
 
 </script>
 
-<style>
+<style lang="stylus" rel="stylesheet/stylus">
+  .app
+    .tab
+      display: flex
+      width:100%
+      height: 40px
+      line-height: 40px
+      .tab-item
+        flex: 1
+        text-align: center
 </style>
