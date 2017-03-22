@@ -2,7 +2,10 @@
   <div class="header">
     <div class="content-wrapper">
       <div class="avatar">
-        <img width="64" height="64" :src="seller.avatar" alt="">
+        <img width="64"
+             height="64"
+             :src="seller.avatar"
+             alt="">
       </div>
       <div class="content">
         <div class="title">
@@ -12,18 +15,22 @@
         <div class="description">
           {{seller.description}}/{{seller.deliveryTime}}分钟送达
         </div>
-        <div class="support" v-if="seller.supports">
-          <span class="icon" :class="classMap[seller.supports[0].type]"></span>
+        <div class="support"
+             v-if="seller.supports">
+          <span class="icon"
+                :class="classMap[seller.supports[0].type]"></span>
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
       <div class="supports-count">
-        <span :if="seller.supports" class="count">{{seller.supports.length}}个</span>
+        <span v-if="seller.supports"
+              class="count">{{seller.supports.length}}个</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
     <div class="bulletin-wrapper">
-
+      <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
+      <i class="icon-keyboard_arrow_right"></i>
     </div>
   </div>
 </template>
@@ -117,4 +124,32 @@ export default {
           margin-left: 2px
           line-height: 24px
           font-size: 10px
+    .bulletin-wrapper
+      position: relative
+      height: 28px
+      line-height: 28px
+      padding: 0 22px 0 12px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+      background-color: rgba(7, 17, 27, 0.2)
+      .bulletin-title
+        display: inline-block
+        vertical-align: top
+        margin-top: 7px
+        width: 22px
+        height: 12px
+        bg-image('bulletin')
+        background-size: 22px 12px
+        background-repeat: no-repeat
+      .bulletin-text
+        vertical-align: top
+        margin: 0 4px
+        font-size: 10px
+      .icon-keyboard_arrow_right
+        position: absolute
+        top: 10px
+        right: 12px
+        font-size: 10px
+
 </style>
