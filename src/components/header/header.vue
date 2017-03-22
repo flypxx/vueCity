@@ -17,8 +17,14 @@
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
+      <div class="supports-count">
+        <span :if="seller.supports" class="count">{{seller.supports.length}}个</span>
+        <i class="icon-keyboard_arrow_right"></i>
+      </div>
     </div>
-    <div class="bulletin-wrapper"></div>
+    <div class="bulletin-wrapper">
+
+    </div>
   </div>
 </template>
 
@@ -41,6 +47,7 @@ export default {
     color: #fff
     background-color: rgba(0, 0, 0 ,0.2)
     .content-wrapper
+      position: relative
       padding: 24px 12px 18px 24px
       font-size: 0
       .avatar
@@ -73,6 +80,7 @@ export default {
         .support
           .icon
             display: inline-block
+            vertical-align: top
             width: 12px
             height: 12px
             margin-right: 4px
@@ -88,4 +96,25 @@ export default {
               bg-image('invoice_1')
             &.special
               bg-image('special_1')
+          .text
+            line-height: 12px
+            font-size: 10px
+      .supports-count
+        position: absolute
+        right: 12px
+        bottom: 16px
+        padding: 0 8px
+        height: 24px
+        line-height: 24px
+        border-radius: 14px
+        background-color: rgba(0, 0, 0, 0.2)
+        text-align: center
+        .count
+          vertical-align: top
+          line-height: 26px
+          font-size: 10px
+        .icon-keyboard_arrow_right
+          margin-left: 2px
+          line-height: 24px
+          font-size: 10px
 </style>
