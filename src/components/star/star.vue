@@ -1,6 +1,6 @@
 <template>
   <div class="star" :class="starType">
-   <span v-for="{{itemClass in itemClasses}}" :class="itemClass" class="star-item"></span>
+   <span v-for="itemClass in itemClasses" :class="itemClass" class="star-item" track-by="$index"></span>
   </div>
 </template>
 
@@ -20,7 +20,7 @@
     },
     computed: {
       starType() {
-        return 'satr-' + this.size;
+        return 'star-' + this.size;
       },
       itemClasses() {
         let result = [];
@@ -44,9 +44,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import '../../common/stylus/mixin.styl'
-
   .star
-    font-size: 0
     .star-item
       display: inline-block
       background-repeat: no-repeat
@@ -92,5 +90,4 @@
           bg-image('star24_half')
         &.off
           bg-image('star24_off')
-
 </style>
