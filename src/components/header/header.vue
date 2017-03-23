@@ -38,7 +38,9 @@
       <div class="detail-wrapper clearfix">
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
-          <star :size="48" :score="seller.score"></star>
+          <div class="star-wrapper">
+            <star :size="48" :score="seller.score"></star>
+          </div>
         </div>
       </div>
       <div class="detail-close">
@@ -209,6 +211,10 @@ export default {
             text-align: center
             font-size: 16px
             font-weight: 700
+          .star-wrapper
+            margin-top: 16px
+            padding: 2px 0
+            text-align: center
       .detail-close
         position: relative
         width: 32px
@@ -216,6 +222,4 @@ export default {
         margin: -64px auto 0 auto
         clear: both
         font-size: 32px
-
-
 </style>
