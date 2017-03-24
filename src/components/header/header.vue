@@ -40,7 +40,7 @@
            height="100%">
     </div>
     <div v-show="detailShow"
-         class="detail">
+         class="detail" transition="fade">
       <div class="detail-wrapper clearfix">
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
@@ -62,9 +62,17 @@
               <span class="text">{{item.description}}</span>
             </li>
           </ul>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">商家公告</div>
+            <div class="line"></div>
+          </div>
+          <div class="bulletin">
+            <p class="content">{{seller.bulletin}}</p>
+          </div>
         </div>
       </div>
-      <div class="detail-close">
+      <div class="detail-close" @click="hideDetail">
         <i class="icon-close"></i>
       </div>
     </div>
@@ -88,6 +96,9 @@ export default {
   methods: {
     showDetail() {
       this.detailShow = true;
+    },
+    hideDetail() {
+      this.detailShow = false;
     }
   },
   created() {
@@ -220,7 +231,13 @@ export default {
       width: 100%
       height: 100%
       overflow: auto
-      background-color: rgba(7, 17, 27, 0.8)
+      transition: all 0.5
+      &.fade-transition
+        opacity: 1
+        background-color: rgba(7, 17, 27, 0.8)
+      &.fade-enter,&.fade-leave
+        opacity: 0
+        background-color: rgba(7, 17, 27, 0)
       .detail-wrapper
         width: 100%
         min-height: 100%
@@ -279,6 +296,13 @@ export default {
               .text
                 line-height: 16px
                 font-size: 12px
+          .bulletin
+            width: 80%
+            margin: 0 auto
+            .content
+              padding: 0 12px
+              line-height: 24px
+              font-size: 12px
       .detail-close
         position: relative
         width: 32px
