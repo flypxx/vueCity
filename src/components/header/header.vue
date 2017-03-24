@@ -22,33 +22,43 @@
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
-      <div v-if="seller.supports" class="supports-count" @click="showDetail">
+      <div v-if="seller.supports"
+           class="supports-count"
+           @click="showDetail">
         <span class="count">{{seller.supports.length}}个</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
-    <div class="bulletin-wrapper" @click="showDetail">
+    <div class="bulletin-wrapper"
+         @click="showDetail">
       <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
     <div class="background">
-      <img :src="seller.avatar" width="100%" height="100%">
+      <img :src="seller.avatar"
+           width="100%"
+           height="100%">
     </div>
-    <div v-show="detailShow" class="detail">
+    <div v-show="detailShow"
+         class="detail">
       <div class="detail-wrapper clearfix">
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
           <div class="star-wrapper">
-            <star :size="48" :score="seller.score"></star>
+            <star :size="48"
+                  :score="seller.score"></star>
           </div>
           <div class="title">
             <div class="line"></div>
             <div class="text">优惠信息</div>
             <div class="line"></div>
           </div>
-          <ul v-if="seller.supports" class="supports">
-            <li class="support-item" v-for="item in seller.suports">
-              <span class="icon" :class="classMap[item.type]"></span>
+          <ul v-if="seller.supports"
+              class="supports">
+            <li class="support-item"
+                v-for="item in seller.supports">
+              <span class="icon"
+                    :class="classMap[item.type]"></span>
               <span class="text">{{item.description}}</span>
             </li>
           </ul>
