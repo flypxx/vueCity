@@ -1,6 +1,13 @@
 <template>
   <div class="goods">
     <div class="menu-wrapper">
+      <ul>
+        <li v-for="item in goods">
+          <span class="text">
+            <span v-if="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
+          </span>
+        </li>
+      </ul>
     </div>
     <div class="foods-wrapper">
     </div>
@@ -8,7 +15,29 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+
+const ERR_OK = 0;
+
+export default {
+  props: {
+    seller: Object
+  },
+  data() {
+    return {
+      goods: []
+    };
+  },
+  created() {
+    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+    axios.get('api/goods').then((res) => {
+      console.log(res);
+      if (res.data.errorno === ERR_OK) {
+        this.goods = res.data.data;
+      }
+    });
+  }
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
