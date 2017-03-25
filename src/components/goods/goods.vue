@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu-wrapper">
       <ul>
-        <li v-for="item in goods">
+        <li v-for="item in goods" class="menu-item">
           <span class="text">
             <span v-if="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
           </span>
@@ -52,6 +52,29 @@ export default {
       flex 0 0 80px
       width 80px
       background-color #f3f5f7
+      .menu-item
+        display table
+        width 56px
+        height 54px
+        line-height 14px
+        .icon
+          display: inline-block
+          vertical-align: top
+          width: 12px
+          height: 12px
+          margin-right: 4px
+          background-size: 12px 12px
+          background-repeat: no-repeat
+          &.decrease
+            bg-image('decrease_3')
+          &.discount
+            bg-image('discount_3')
+          &.guarantee
+            bg-image('guarantee_3')
+          &.invoice
+            bg-image('invoice_3')
+          &.special
+            bg-image('special_3')
     .foods-wrapper
       flex 1
 </style>
