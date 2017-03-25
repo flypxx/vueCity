@@ -86,9 +86,7 @@ import star from 'components/star/star';
 
 export default {
   props: {
-    seller: {
-      type: Object
-    }
+    seller: Object
   },
   data() {
     return {
