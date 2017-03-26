@@ -73,6 +73,8 @@ export default {
         this.goods = res.data.data;
         this.$nextTick(() => {
           this._initScroll();
+          // 初始化列表高度列表
+          this._calculateHeight();
         });
       }
     });
@@ -122,6 +124,14 @@ export default {
         height 54px
         padding 0 12px
         line-height 14px
+        &.current
+          position relative
+          z-index 10
+          margin-top -1px
+          background-color #fff
+          font-weight 700
+          .text
+            border-none()
         .icon
           display inline-block
           vertical-align top
