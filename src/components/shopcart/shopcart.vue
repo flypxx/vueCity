@@ -12,8 +12,8 @@
         <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
       </div>
       <div class="content-right">
-        <div class="pay">
-          ￥{{minPrice}}元起送
+        <div class="pay" :class="payClass">
+          {{payDesc}}
         </div>
       </div>
     </div>
@@ -56,6 +56,19 @@
           count += food.count;
         });
         return count;
+      },
+      payDesc() {
+        if (this.totalPrice) {
+          return `￥${this.minPrice}元起送`;
+        } else if (this.totalPrice < this.minPrice) {
+          let diff = this.minPrice - this.totalPrice;
+          return `还差￥${diff}元起送`;
+        } else {
+          return `去结算`;
+        }
+      },
+      payClass() {
+        return this.totalPrice < this.minPrice ? 'not-enough' : 'enough';
       }
     }
   };
@@ -122,5 +135,8 @@
           text-align center
           font-size 12px
           font-weight 700
-          background-color #2b333b
+          &.not-enough
+            background-color #2b333b
+          &.enough
+            background-color #00b43c
 </style>
