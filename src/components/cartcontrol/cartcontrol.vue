@@ -30,7 +30,7 @@ export default {
       } else {
         this.food.count++;
       }
-      console.log(this.food.count);
+      this.$root.eventHub.$emit('cart.add', event.target);
     },
     countMinus(event) {
       if (!event._constructed) {

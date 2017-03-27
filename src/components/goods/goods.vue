@@ -47,6 +47,7 @@ import shopcart from 'components/shopcart/shopcart';
 import cartcontrol from 'components/cartcontrol/cartcontrol';
 
 const ERR_OK = 0;
+const eventHub = new Vue();
 
 export default {
   props: {
