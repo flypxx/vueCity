@@ -41,12 +41,15 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import BScroll from 'better-scroll';
 import axios from 'axios';
 import shopcart from 'components/shopcart/shopcart';
 import cartcontrol from 'components/cartcontrol/cartcontrol';
 
 const ERR_OK = 0;
+
+/* eslint-disable no-unused-vars */
 const eventHub = new Vue();
 
 export default {
