@@ -27,8 +27,8 @@
         default() {
           return [
             {
-              price: 10,
-              count: 1
+              price: 15,
+              count: 2
             }
           ];
         }
@@ -58,7 +58,7 @@
         return count;
       },
       payDesc() {
-        if (this.totalPrice) {
+        if (this.totalPrice === 0) {
           return `￥${this.minPrice}元起送`;
         } else if (this.totalPrice < this.minPrice) {
           let diff = this.minPrice - this.totalPrice;
@@ -139,4 +139,5 @@
             background-color #2b333b
           &.enough
             background-color #00b43c
+            color #fff
 </style>
