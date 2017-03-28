@@ -23,7 +23,8 @@
                   v-for="ball in balls"
                   @before-enter="beforeEnter"
                   @enter="enter"
-                  @after-enter="afterEnter">
+                  @after-enter="afterEnter"
+                  :key="ball.id">
         <div class="ball"
              v-show="ball.show">
           <div class="inner inner-hock"></div>
@@ -54,19 +55,24 @@ export default {
     return {
       balls: [
         {
-          show: false
+          show: false,
+          id: 0
         },
         {
-          show: false
+          show: false,
+          id: 1
         },
         {
-          show: false
+          show: false,
+          id: 2
         },
         {
-          show: false
+          show: false,
+          id: 3
         },
         {
-          show: false
+          show: false,
+          id: 4
         }
       ],
       dropBalls: []
@@ -106,18 +112,27 @@ export default {
   },
   methods: {
     drop(el) {
-      this.balls.forEach((ball) => {
+      for (let i = 0, l = this.balls.length; i < l; i++) {
+        let ball = this.balls[i];
         if (!ball.show) {
           ball.show = true;
           ball.el = el;
           this.dropBalls.push(ball);
           return;
         }
-      });
+      }
+      // this.balls.forEach((ball) => {
+      //   if (!ball.show) {
+      //     ball.show = true;
+      //     ball.el = el;
+      //     this.dropBalls.push(ball);
+      //     return;
+      //   }
+      // });
     },
     beforeEnter(el) {
-      const left = 32;
-      const bottom = 22;
+      const left = 22;
+      const bottom = 48;
       let len = this.balls.length;
       while (len--) {
         let ball = this.balls[len];
@@ -134,9 +149,9 @@ export default {
         }
       }
     },
-    ente(el) {
+    enter(el) {
       el.offsetHeight;
-      this.nextTick(() => {
+      this.$nextTick(() => {
         el.style.webkitTransform = 'translate3d(0,0,0)';
         el.style.transform = 'translate3d(0,0,0)';
         let inner = el.querySelector('.inner-hock');
@@ -229,13 +244,13 @@ export default {
         bottom 22px
         z-index 100
         &.drop-enter,&.drop-enter-active
-          transition all .4s
+          transition all .3s
           .inner
             width 16px
             height 16px
             border-radius 50%
             background-color rgb(0, 160, 220)
-            transition all .4s
+            transition all .3s
 
 
 </style>
