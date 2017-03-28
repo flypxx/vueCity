@@ -1,14 +1,16 @@
 <template>
   <div class="shopcart">
     <div class="content">
-      <div class="content-left">
+      <div class="content-left" @click="listToggle">
         <div class="logo-wrapper">
-          <div class="logo">
+          <div class="num" v-show="totalCount">
+            {{totalCount}}
+          </div>
+          <div class="logo" :class="{'active':totalCount}">
             <i class="icon-shopping_cart"></i>
           </div>
-          <div class="num"></div>
         </div>
-        <div class="price">￥{{totalPrice}}</div>
+        <div class="price" :class="{'active':totalCount}">￥{{totalPrice}}</div>
         <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
       </div>
       <div class="content-right">
@@ -31,9 +33,29 @@
         </div>
       </transition>
     </div>
+    <div class="shopcart-list" v-show="listShow">
+      <div class="list-header">
+        <h1 class="title">购物车</h1>
+        <span clas="empty">清空</span>
+      </div>
+      <div class="list-content">
+        <ul>
+          <li class="food" v-for="food in selectFoods">
+            <span class="name">{{food.name}}</span>
+            <div class="price">
+              <span>￥{{food.price*food.count}}</span>
+            </div>
+            <div class="cartcontrol-wrapper">
+              <cartcontrol :food="food"></cartcontrol>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
+import cartcontrol from 'components/cartcontrol/cartcontrol';
 export default {
   props: {
     selectFoods: {
@@ -75,7 +97,8 @@ export default {
           id: 4
         }
       ],
-      dropBalls: []
+      dropBalls: [],
+      fold: true
     };
   },
   created() {
@@ -108,6 +131,14 @@ export default {
     },
     payClass() {
       return this.totalPrice < this.minPrice ? 'not-enough' : 'enough';
+    },
+    listShow() {
+      if (!this.selectFoods.length) {
+        this.fold = true;
+        return false;
+      }
+      let show = !this.fold;
+      return show;
     }
   },
   methods: {
@@ -158,7 +189,16 @@ export default {
         ball.show = false;
         el.style.display = 'none';
       }
+    },
+    listToggle() {
+      if (!this.selectFoods.length) {
+        return;
+      }
+      this.fold = !this.fold;
     }
+  },
+  components: {
+    cartcontrol
   }
 };
 </script>
@@ -189,16 +229,32 @@ export default {
           box-sizing border-box
           border-radius 50%
           background-color #141d27
+          .num
+            position absolute
+            top: 0;
+            right 0
+            width 24px
+            height 16px
+            line-height: 16px;
+            text-align center
+            font-size: 9px;
+            border-radius: 16px;
+            box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+            font-weight: 700;
+            color: white;
+            background-color: rgb(240, 20, 20);
           .logo
             width 100%
             height 100%
             border-radius 50%
             text-align center
             background-color #2b343c
-            .icon-shopping_cart
-              line-height 44px
-              font-size 24px
-              color #80858a
+            line-height 44px
+            font-size 24px
+            color #80858a
+            &.active
+              background: rgb(0, 160, 220);
+              color: #fff
         .price
           display inline-block
           vertical-align top
@@ -209,6 +265,8 @@ export default {
           border-right 1px solid rgba(255, 255, 255, 0.1)
           font-size 16px
           font-weight 700
+          &.active
+            color #fff
         .desc
           display inline-block
           vertical-align top
@@ -236,13 +294,11 @@ export default {
         bottom 22px
         z-index 100
         &.drop-enter,&.drop-enter-active
-          transition all .3s
+          transition all .4s cubic-bezier(0.49,-0.29,0.75,0.41)
           .inner
             width 16px
             height 16px
             border-radius 50%
             background-color rgb(0, 160, 220)
-            transition all .3s
-
-
+            transition all .4s linear
 </style>
