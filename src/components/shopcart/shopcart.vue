@@ -121,14 +121,6 @@ export default {
           return;
         }
       }
-      // this.balls.forEach((ball) => {
-      //   if (!ball.show) {
-      //     ball.show = true;
-      //     ball.el = el;
-      //     this.dropBalls.push(ball);
-      //     return;
-      //   }
-      // });
     },
     beforeEnter(el) {
       const left = 22;
