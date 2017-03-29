@@ -39,7 +39,7 @@
           <h1 class="title">购物车</h1>
           <span class="empty">清空</span>
         </div>
-        <div class="list-content">
+        <div class="list-content" ref="foodlistscroll">
           <ul>
             <li class="food" v-for="food in selectFoods">
               <span class="name">{{food.name}}</span>
@@ -57,6 +57,7 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
+import BScroll from 'better-scroll';
 import cartcontrol from 'components/cartcontrol/cartcontrol';
 export default {
   props: {
@@ -144,6 +145,11 @@ export default {
     }
   },
   methods: {
+    _iniListScroll() {
+      this.foodlistScroll = new BScroll(this.$refs.foodlistscroll, {
+        click: true
+      });
+    },
     drop(el) {
       for (let i = 0, l = this.balls.length; i < l; i++) {
         let ball = this.balls[i];
@@ -197,6 +203,15 @@ export default {
         return;
       }
       this.fold = !this.fold;
+      if (!this.fold) {
+        this.$nextTick(() => {
+          if (!this.foodlistScroll) {
+            this._iniListScroll();
+          } else {
+            this.foodlistScroll.refresh();
+          }
+        });
+      }
     }
   },
   components: {
