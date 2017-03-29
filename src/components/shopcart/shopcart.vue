@@ -14,7 +14,7 @@
           <div class="price" :class="{'active':totalCount}">￥{{totalPrice}}</div>
           <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
         </div>
-        <div class="content-right">
+        <div class="content-right" @click.stop.prevent="pay">
           <div class="pay"
               :class="payClass">
             {{payDesc}}
@@ -222,6 +222,13 @@ export default {
       this.selectFoods.forEach((food) => {
         food.count = 0;
       });
+    },
+    pay() {
+      if (this.totalPrice < this.minPrice) {
+        return;
+      }
+      // pay function
+      console.log('you need add pay function ^_^');
     }
   },
   components: {
