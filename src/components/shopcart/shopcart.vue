@@ -33,25 +33,27 @@
         </div>
       </transition>
     </div>
-    <div class="shopcart-list" v-show="listShow">
-      <div class="list-header">
-        <h1 class="title">购物车</h1>
-        <span clas="empty">清空</span>
+    <transition name="showCartList">
+      <div class="shopcart-list" v-show="listShow">
+        <div class="list-header">
+          <h1 class="title">购物车</h1>
+          <span clas="empty">清空</span>
+        </div>
+        <div class="list-content">
+          <ul>
+            <li class="food" v-for="food in selectFoods">
+              <span class="name">{{food.name}}</span>
+              <div class="price">
+                <span>￥{{food.price*food.count}}</span>
+              </div>
+              <div class="cartcontrol-wrapper">
+                <cartcontrol :food="food"></cartcontrol>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="list-content">
-        <ul>
-          <li class="food" v-for="food in selectFoods">
-            <span class="name">{{food.name}}</span>
-            <div class="price">
-              <span>￥{{food.price*food.count}}</span>
-            </div>
-            <div class="cartcontrol-wrapper">
-              <cartcontrol :food="food"></cartcontrol>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -301,4 +303,17 @@ export default {
             border-radius 50%
             background-color rgb(0, 160, 220)
             transition all .4s linear
+    .shopcart-list
+      position absolute
+      top 0
+      left 0
+      width 100%
+      transform translate3d(0, -100%, 0)
+      background #fff
+      z-index -1
+      &.showCartList-enter-active,&.showCartList-leave-active
+        transition all 0.4
+      &.showCartList-enter,&.showCartList-leave-active
+        transform translate3d(0, 0, 0)
+
 </style>
