@@ -1,58 +1,63 @@
 <template>
-  <div class="shopcart">
-    <div class="content">
-      <div class="content-left" @click="listToggle">
-        <div class="logo-wrapper">
-          <div class="num" v-show="totalCount">
-            {{totalCount}}
+  <div>
+    <div class="shopcart">
+      <div class="content">
+        <div class="content-left" @click="listToggle">
+          <div class="logo-wrapper">
+            <div class="num" v-show="totalCount">
+              {{totalCount}}
+            </div>
+            <div class="logo" :class="{'active':totalCount}">
+              <i class="icon-shopping_cart"></i>
+            </div>
           </div>
-          <div class="logo" :class="{'active':totalCount}">
-            <i class="icon-shopping_cart"></i>
+          <div class="price" :class="{'active':totalCount}">￥{{totalPrice}}</div>
+          <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
+        </div>
+        <div class="content-right">
+          <div class="pay"
+              :class="payClass">
+            {{payDesc}}
           </div>
         </div>
-        <div class="price" :class="{'active':totalCount}">￥{{totalPrice}}</div>
-        <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
       </div>
-      <div class="content-right">
-        <div class="pay"
-             :class="payClass">
-          {{payDesc}}
-        </div>
+      <div class="ball-container">
+        <transition name="drop"
+                    v-for="ball in balls"
+                    @before-enter="beforeEnter"
+                    @enter="enter"
+                    @after-enter="afterEnter"
+                    :key="ball.id">
+          <div class="ball"
+              v-show="ball.show">
+            <div class="inner inner-hock"></div>
+          </div>
+        </transition>
       </div>
-    </div>
-    <div class="ball-container">
-      <transition name="drop"
-                  v-for="ball in balls"
-                  @before-enter="beforeEnter"
-                  @enter="enter"
-                  @after-enter="afterEnter"
-                  :key="ball.id">
-        <div class="ball"
-             v-show="ball.show">
-          <div class="inner inner-hock"></div>
+      <transition name="showCartList">
+        <div class="shopcart-list" v-show="listShow">
+          <div class="list-header">
+            <h1 class="title">购物车</h1>
+            <span class="empty" @click="empty">清空</span>
+          </div>
+          <div class="list-content" ref="foodlistscroll">
+            <ul>
+              <li class="food" v-for="food in selectFoods">
+                <span class="name">{{food.name}}</span>
+                <div class="price">
+                  <span>￥{{food.price*food.count}}</span>
+                </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </transition>
     </div>
-    <transition name="showCartList">
-      <div class="shopcart-list" v-show="listShow">
-        <div class="list-header">
-          <h1 class="title">购物车</h1>
-          <span class="empty">清空</span>
-        </div>
-        <div class="list-content" ref="foodlistscroll">
-          <ul>
-            <li class="food" v-for="food in selectFoods">
-              <span class="name">{{food.name}}</span>
-              <div class="price">
-                <span>￥{{food.price*food.count}}</span>
-              </div>
-              <div class="cartcontrol-wrapper">
-                <cartcontrol :food="food"></cartcontrol>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <transition name="fade-bg">
+      <div class="bg" v-show="listShow"></div>
     </transition>
   </div>
 </template>
@@ -212,6 +217,11 @@ export default {
           }
         });
       }
+    },
+    empty() {
+      this.selectFoods.forEach((food) => {
+        food.count = 0;
+      });
     }
   },
   components: {
@@ -372,4 +382,17 @@ export default {
             position absolute
             right 0
             bottom 6px
+  .bg
+    position fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+    background-color rgba(7, 17, 27, 0.6)
+    z-index 40
+    backdrop-filter blur(10px)
+    &.fade-bg-enter-active,&.fade-bg-leave-active
+      transition opacity .5s
+    &.fade-bg-enter,&.fade-bg-leave-active
+      opacity 0
 </style>
