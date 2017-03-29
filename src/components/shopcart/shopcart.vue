@@ -37,7 +37,7 @@
       <div class="shopcart-list" v-show="listShow">
         <div class="list-header">
           <h1 class="title">购物车</h1>
-          <span clas="empty">清空</span>
+          <span class="empty">清空</span>
         </div>
         <div class="list-content">
           <ul>
@@ -205,6 +205,8 @@ export default {
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/mixin.styl"
+
   .shopcart
     position fixed
     left 0
@@ -312,8 +314,47 @@ export default {
       background #fff
       z-index -1
       &.showCartList-enter-active,&.showCartList-leave-active
-        transition all 0.4
+        transition all 0.5s
       &.showCartList-enter,&.showCartList-leave-active
         transform translate3d(0, 0, 0)
-
+      .list-header
+        height 40px
+        line-height 40px
+        padding 0 18px
+        background-color #f3f5f7
+        border-bottom 1px solid rgba(7, 17, 27, 0.1)
+        .title
+          float left
+          font-size 14px
+          color rgb(7, 17, 27)
+        .empty
+          float right
+          font-size 12px
+          color rgb(0, 160, 220)
+      .list-content
+        padding 0 18px
+        max-height 217px
+        overflow hidden
+        background-color #fff
+        .food
+          position relative
+          padding 12px 0
+          box-sizing border-box
+          border-1px(rgba(7, 17, 27, 0.1))
+          .name
+            line-height 24px
+            font-size 14px
+            color rgb(7, 17, 27)
+          .price
+            position absolute
+            right 90px
+            bottom 12px
+            line-height 24px
+            font-size 14px
+            font-weight 700
+            color rgb(240, 20, 20)
+          .cartcontrol-wrapper
+            position absolute
+            right 0
+            bottom 6px
 </style>
