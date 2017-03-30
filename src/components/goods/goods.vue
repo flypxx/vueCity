@@ -39,7 +39,7 @@
       </div>
       <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectFoods="selectFoods"></shopcart>
     </div>
-    <food :food="selectedFood"></food>
+    <food :food="selectedFood" ref="foodDetail"></food>
   </div>
 </template>
 
@@ -142,6 +142,7 @@ export default {
         return;
       }
       this.selectedFood = food;
+      this.$refs.foodDetail.showFood();
     }
   },
   components: {

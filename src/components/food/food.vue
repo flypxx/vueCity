@@ -5,6 +5,16 @@
   export default {
     props: {
       food: Object
+    },
+    data() {
+      return {
+        showFoodDetail: false
+      };
+    },
+    methods: {
+      showFood() {
+        this.showFoodDetail = true;
+      }
     }
   };
 </script>
