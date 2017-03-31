@@ -57,7 +57,7 @@
       </transition>
     </div>
     <transition name="fade-bg">
-      <div class="bg" v-show="listShow"></div>
+      <div class="bg" v-show="listShow" @click="listHide"></div>
     </transition>
   </div>
 </template>
@@ -229,6 +229,9 @@ export default {
       }
       // pay function
       console.log('you need add pay function ^_^');
+    },
+    listHide() {
+      this.fold = true;
     }
   },
   components: {

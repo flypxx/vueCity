@@ -3,14 +3,14 @@
     <transition name="fadeRotate">
       <div class="cart-minus"
            v-show="food.count>0"
-           @click="countMinus">
+           @click.stop.prevent="countMinus">
         <span class="inner icon-remove_circle_outline"></span>
       </div>
     </transition>
     <div class="cart-count"
-         v-show="food.count>0">{{food.count}}</div>
+         v-show="food.count>0" @click.stop.prevent="">{{food.count}}</div>
     <div class="cart-plus icon-add_circle"
-         @click="countPlus"></div>
+         @click.stop.prevent="countPlus"></div>
   </div>
 </template>
 <script type="text/ecmascript-6">
