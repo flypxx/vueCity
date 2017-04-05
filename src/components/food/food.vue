@@ -1,11 +1,13 @@
 <template>
   <transition name="move">
     <div v-show="showFoodDetail"
-         class="food" ref="food">
+         class="food"
+         ref="food">
       <div class="food-content">
         <div class="image-header">
           <img :src="food.image">
-          <div class="back" @click="hideFoodDetail">
+          <div class="back"
+               @click="hideFoodDetail">
             <i class="icon-arrow_left"></i>
           </div>
         </div>
@@ -25,10 +27,17 @@
             <cartcontrol :food="food"></cartcontrol>
           </div>
           <transition name="fade">
-            <div @click="addFirst" class="buy" v-show="!food.count || food.count===0">加入购物车</div>
+            <div @click="addFirst"
+                 class="buy"
+                 v-show="!food.count || food.count===0">加入购物车</div>
           </transition>
         </div>
-        <split></split>
+        <split v-show="food.info"></split>
+        <div class="info"
+             v-show="food.info">
+          <h1 class="title">商品信息</h1>
+          <p class="text">{{food.info}}</p>
+        </div>
       </div>
     </div>
   </transition>
@@ -142,26 +151,38 @@ export default {
           text-decoration line-through
           font-size 10px
           color rgb(147, 153, 159)
-    .cartcontrol-wrapper
-      position absolute
-      right 12px
-      bottom 12px
-    .buy
-      position absolute
-      right 18px
-      bottom 18px
-      z-index 10
-      height 24px
-      line-height 24px
-      padding 0 12px
-      box-sizing border-box
-      border-radius 12px
-      font-size 10px
-      color #fff
-      background-color rgb(0, 160, 220)
-      &.fade-enter-active,&fade-leave-active
-        transition all 0.2s
-        opacity 1
-      &.fade-enter,&fade-leave-active
-        opacity 0
+      .cartcontrol-wrapper
+        position absolute
+        right 12px
+        bottom 12px
+      .buy
+        position absolute
+        right 18px
+        bottom 18px
+        z-index 10
+        height 24px
+        line-height 24px
+        padding 0 12px
+        box-sizing border-box
+        border-radius 12px
+        font-size 10px
+        color #fff
+        background-color rgb(0, 160, 220)
+        &.fade-enter-active,&fade-leave-active
+          transition all 0.2s
+          opacity 1
+        &.fade-enter,&fade-leave-active
+          opacity 0
+    .info
+      padding 18px
+      .title
+        line-height 14px
+        margin-bottom 6px
+        font-size 14px
+        color rgb(7, 17, 27)
+      .text
+        line-height 24px
+        padding 0 8px
+        font-size 12px
+        color rgb(77, 85, 93)
 </style>
