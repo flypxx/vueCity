@@ -205,4 +205,11 @@ export default {
         padding 0 8px
         font-size 12px
         color rgb(77, 85, 93)
+    .rating
+      padding-top 18px
+      .title
+        line-height 14px
+        margin-left 18px
+        font-size 14px
+        color rgb(7, 17, 27)
 </style>
