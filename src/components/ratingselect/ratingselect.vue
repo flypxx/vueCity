@@ -6,7 +6,7 @@
       <span>{{desc.negative}}</span>
     </div>
     <div class="switch">
-      <span class="icon-check_circel"></span>
+      <span class="icon-check_circle"></span>
       <span class="text">只看内容和评价</span>
     </div>
   </div>
