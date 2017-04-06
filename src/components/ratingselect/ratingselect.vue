@@ -1,9 +1,9 @@
 <template>
   <div class="ratingselect">
     <div class="rating-type border-1px">
-      <span class="block positive" :class="selectType==2?'active':''">{{desc.all}}<span class="count">47</span></span>
-      <span class="block positive" :class="selectType==0?'active':''">{{desc.positive}}<span class="count">40</span></span>
-      <span class="block negative" :class="selectType==1?'active':''">{{desc.negative}}<span class="count">7</span></span>
+      <span class="block positive" :class="selectType === 2 ? 'active' : ''">{{desc.all}}<span class="count">47</span></span>
+      <span class="block positive" :class="selectType === 0 ? 'active' : ''">{{desc.positive}}<span class="count">40</span></span>
+      <span class="block negative" :class="selectType === 1 ? 'active' : ''">{{desc.negative}}<span class="count">7</span></span>
     </div>
     <div class="switch" :class="{'on':onlyContent}">
       <span class="icon-check_circle"></span>
@@ -25,7 +25,7 @@
       },
       selectType: {
         type: Number,
-        default: NEGATIVE
+        default: ALL
       },
       onlyContent: {
         type: Boolean,
