@@ -5,7 +5,7 @@
       <span class="block positive" :class="{'active':selectType===0}">{{desc.positive}}<span class="count">40</span></span>
       <span class="block negative" :class="{'active':selectType===1}">{{desc.negative}}<span class="count">7</span></span>
     </div>
-    <div class="switch">
+    <div class="switch" :class="{'on':onlyContent}">
       <span class="icon-check_circle"></span>
       <span class="text">只看内容和评价</span>
     </div>
@@ -25,11 +25,13 @@
       },
       selectType: {
         type: Number,
-        default: ALL
+        default: NEGATIVE
       },
       onlyContent: {
         type: Boolean,
-        default: false
+        default() {
+          return false
+        }
       },
       desc: {
         type: Object,
@@ -73,4 +75,21 @@
           background-color rgba(77, 85, 93, 0.2)
           &.active
             background-color rgb(77, 85, 93)
+    .switch
+      padding 12px 18px
+      line-height 24px
+      border-bottom 1px solid rgba(7, 17, 27, 0.1)
+      color rgb(147, 153, 159)
+      &.on
+        .icon-check_circle
+          color #00c850
+      .icon-check_circle
+        display inline-block
+        vertical-align top
+        margin-right 4px
+        font-size 24px
+      .text
+        display inline-block
+        vertical-align top
+        font-size 12px
 </style>
