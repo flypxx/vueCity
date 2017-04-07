@@ -56,7 +56,7 @@
                 </p>
               </li>
             </ul>
-            <div v-show="!food.ratings || !food.ratings.length" class="no-rating"></div>
+            <div v-show="!food.ratings || !food.ratings.length" class="no-rating">暂无评价</div>
           </div>
         </div>
       </div>
@@ -256,7 +256,7 @@ export default {
         font-size 14px
         color rgb(7, 17, 27)
       .ratings-wrapper
-        padding 018px
+        padding 0 18px
         .rating-item
           position relative
           padding 16px 0
@@ -294,5 +294,9 @@ export default {
               color rgb(0, 160, 220)
             .icon-thumb_down
               color rgb(147, 153, 157)
+        .no-rating
+          padding 16px 0
+          font-size 12px
+          color rgb(147, 153, 159)
 
 </style>
