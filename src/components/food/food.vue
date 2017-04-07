@@ -44,7 +44,7 @@
           <ratingselect :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="food.ratings"></ratingselect>
           <div class="ratings-wrapper">
             <ul v-show="food.ratings && food.ratings.length">
-              <li v-for="rating in food.ratings" class="rating-item">
+              <li v-for="rating in food.ratings" v-show="needShow(rating.rateType, rating.text)" class="rating-item border-1px">
                 <div class="user">
                   <span class="name">{{rating.username}}</span>
                   <img :src="rating.avatar" width="12" height="12" class="avatar">
@@ -90,11 +90,15 @@ export default {
       }
     };
   },
+  created() {
+    this.$root.eventHub.$on('ratingtype.select', this.select);
+    this.$root.eventHub.$on('content.toggle', this.filterContent);
+  },
   methods: {
     showFood() {
       this.showFoodDetail = true;
       this.selectType = ALL;
-      this.onlyContent = true;
+      this.onlyContent = false;
       this.$nextTick(() => {
         if (!this.scroll) {
           this.scroll = new BScroll(this.$refs.food, {
@@ -114,6 +118,22 @@ export default {
       }
       this.$root.eventHub.$emit('cart.add', event.target);
       Vue.set(this.food, 'count', 1);
+    },
+    needShow(type, text) {
+      if (this.onlyContent && !text) {
+        return false;
+      }
+      if (this.selectType === ALL) {
+        return true;
+      } else {
+        return type === this.selectType;
+      }
+    },
+    select(type) {
+      this.selectType = type;
+    },
+    filterContent(ifOnly) {
+      this.onlyContent = ifOnly;
     }
   },
   components: {
@@ -124,6 +144,7 @@ export default {
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
+  @import '../../common/stylus/mixin.styl'
   .food
     position fixed
     top 0
@@ -228,4 +249,44 @@ export default {
         margin-left 18px
         font-size 14px
         color rgb(7, 17, 27)
+      .ratings-wrapper
+        padding 018px
+        .rating-item
+          position relative
+          padding 16px 0
+          border-1px(rgba(7, 17, 27, 0.1))
+          .user
+            position absolute
+            top 16px
+            right 0
+            line-height 12px
+            font-size 0
+            .name
+              display inline-block
+              vertical-align top
+              margin-right 6px
+              font-size 10px
+              color rgb(143, 157, 159)
+            .avatar
+              display inline-block
+              vertical-align top
+              border-radius 50%
+          .time
+            margin-bottom 6px
+            line-height 12px
+            font-size 10px
+            color rgb(147, 153, 157)
+          .text
+            line-height 16px
+            font-size 12px
+            color rgb(7, 17, 27)
+            .icon-thumb_up,.icon-thumb_down
+              margin-right 4px
+              line-height 16px
+              font-size 12px
+            .icon-thumb_up
+              color rgb(0, 160, 220)
+            .icon-thumb_down
+              color rgb(147, 153, 157)
+
 </style>
