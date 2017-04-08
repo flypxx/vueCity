@@ -72,7 +72,7 @@ import ratingselect from 'components/ratingselect/ratingselect';
 import {dateFormat} from 'common/js/date';
 
 Vue.filter('formatTime', function(value) {
-  return dateFormat(value);
+  return dateFormat(new Date(value), 'yyyy-MM-dd hh:mm');
 });
 
 // const POSITIVE = 0;
