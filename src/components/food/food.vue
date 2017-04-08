@@ -49,7 +49,7 @@
                   <span class="name">{{rating.username}}</span>
                   <img :src="rating.avatar" width="12" height="12" class="avatar">
                 </div>
-                <div class="time">{{rating.rateTime}}</div>
+                <div class="time">{{rating.rateTime | formatTime(rating.rateTime)}}</div>
                 <p class="text">
                   <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
                   {{rating.text}}
@@ -69,6 +69,7 @@ import Vue from 'vue';
 import cartcontrol from 'components/cartcontrol/cartcontrol';
 import split from 'components/split/split';
 import ratingselect from 'components/ratingselect/ratingselect';
+import {dateFormat} from 'common/js/date';
 
 // const POSITIVE = 0;
 // const NEGATIVE = 1;
@@ -140,6 +141,11 @@ export default {
       this.$nextTick(() => {
         this.scroll.refresh();
       });
+    }
+  },
+  computed: {
+    formatTime(time) {
+      return dateFormat(time);
     }
   },
   components: {
