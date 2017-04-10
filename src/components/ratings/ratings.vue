@@ -26,18 +26,50 @@
       </div>
       <split></split>
       <ratingselect :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="ratings"></ratingselect>
+      <div class="rating-wrapper">
+        <ul>
+          <li class="rating-item" v-for="rating in ratings">
+            <div class="avatar">
+              <img :src="rating.avatar">
+            </div>
+            <div class="content">
+              <h1 class="name">
+                {{rating.username}}
+              </h1>
+              <div class="star-wrapper">
+                <star :size="24" :score="rating.score"></star>
+                <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}</span>
+              </div>
+              <p class="text">{{rating.text}}</p>
+              <div class="recommend" v-show="rating.recommend && rating.recommend.length">
+                <span class="icon-thumb_up"></span>
+                <span class="" v-for="item in rating.recommend">
+                  {{item}}
+                </span>
+              </div>
+              <div class="time">{{rating.rateTime | formatTime}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="ecmascript-6">
+  import Vue from 'vue';
   import star from 'components/star/star';
   import split from 'components/split/split';
   import ratingselect from 'components/ratingselect/ratingselect';
   import axios from 'axios';
+  import {dateFormat} from 'common/js/date';
 
   const ERR_OK = 0;
   const ALL = 2;
+
+  Vue.filter('formatTime', function(value) {
+    return dateFormat(new Date(value), 'yyyy-MM-dd hh:mm');
+  });
 
   export default {
     props: {
@@ -142,9 +174,4 @@
             margin-left 12px
             font-size 12px
             color rgb(147, 153, 159)
-
-
-
-
-
 </style>
