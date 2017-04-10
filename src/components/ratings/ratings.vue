@@ -1,6 +1,6 @@
 <template>
-  <div class="ratings">
-    <div class="ratinga-content">
+  <div class="ratings" ref="ratingsScroll">
+    <div class="ratings-content">
       <div class="overview">
         <div class="overview-left">
           <h1 class="score">{{seller.score}}</h1>
@@ -30,7 +30,7 @@
         <ul>
           <li class="rating-item" v-for="rating in ratings">
             <div class="avatar">
-              <img :src="rating.avatar">
+              <img width="28" height="28" :src="rating.avatar">
             </div>
             <div class="content">
               <h1 class="name">
@@ -62,6 +62,7 @@
   import split from 'components/split/split';
   import ratingselect from 'components/ratingselect/ratingselect';
   import axios from 'axios';
+  import BScroll from 'better-scroll';
   import {dateFormat} from 'common/js/date';
 
   const ERR_OK = 0;
@@ -93,9 +94,9 @@
         if (res.data.errorno === ERR_OK) {
           this.ratings = res.data.data;
           this.$nextTick(() => {
-            // this._initScroll();
-            // 初始化列表高度列表
-            // this._calculateHeight();
+            this.ratingsScroll = new BScroll(this.$refs.ratingsScroll, {
+              click: true
+            });
           });
         }
       });
