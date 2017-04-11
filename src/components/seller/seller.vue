@@ -4,9 +4,11 @@
       <div class="overview">
         <h1 class="title">{{seller.name}}</h1>
         <div class="desc border-1px">
-          <star :size="36" :score="seller.score" class="star"></star>
+          <star :size="36"
+                :score="seller.score"
+                class="star"></star>
           <span class="text">({{seller.ratingCount}})</span>
-          <span class="text">月售{{seller.sellConut}}单</span>
+          <span class="text">月售{{seller.sellCount}}单</span>
         </div>
         <ul class="remark">
           <li class="block">
@@ -29,20 +31,46 @@
           </li>
         </ul>
       </div>
+      <split></split>
+      <div class="bulletin">
+        <h1 class="title">
+          公告与活动
+        </h1>
+        <div class="content-wrapper">
+          <p class="content">
+            {{seller.bulletin}}
+          </p>
+        </div>
+        <ul v-if="seller.supports"
+            class="supports">
+          <li class="support-item border-1px"
+              v-for="item in seller.supports">
+            <span class="icon"
+                  :class="classMap[item.type]"></span>
+            <span class="text">{{item.description}}</span>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </template>
 
-<script>
-  import star from 'components/star/star';
-  export default {
-    props: {
-      seller: Object
-    },
-    components: {
-      star
-    }
-  };
+<script type="ecmascript-6">
+import star from 'components/star/star';
+import split from 'components/split/split';
+export default {
+  props: {
+    seller: Object
+  },
+  created() {
+    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+  },
+  components: {
+    star,
+    split
+  }
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -63,7 +91,6 @@
         color rgb(7, 17, 27)
       .desc
         padding-bottom 18px
-        line-height 18px
         border-1px(rgba(7, 17, 27, 0.1))
         font-size 0
         .star
@@ -72,6 +99,7 @@
           vertical-align top
         .text
           display inline-block
+          line-height 18px
           margin-right 12px
           vertical-align top
           font-size 10px
@@ -83,7 +111,7 @@
           flex 1
           text-align center
           border-right 1px solid rgba(7, 17, 27, 0.1)
-          :last-child
+          &:last-child
             border none
           h2
             margin-bottom 4px
@@ -96,4 +124,20 @@
             color rgb(7, 17, 27)
             .stress
               font-size 24px
+    .bulletin
+      padding 18px 18px 0 18px
+      .title
+        margin-bottom 8px
+        line-height 14px
+        font-size 14px
+        color rgb(7, 17, 27)
+      .content-wrapper
+        padding 0 12px 16px 12px
+        border-1px(rgba(7, 17, 27, 0.1))
+        .content
+          line-height 24px
+          font-size 12px
+          color rgb(240, 20, 20)
+      .supports
+        padding 18px
 </style>
