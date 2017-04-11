@@ -28,7 +28,7 @@
       <ratingselect :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="ratings"></ratingselect>
       <div class="rating-wrapper">
         <ul>
-          <li class="rating-item border-1px" v-for="rating in ratings">
+          <li class="rating-item border-1px" v-show="needShow(rating.rateType, rating.text)" v-for="rating in ratings">
             <div class="avatar">
               <img width="28" height="28" :src="rating.avatar">
             </div>
@@ -100,6 +100,32 @@
           });
         }
       });
+      this.$root.eventHub.$on('ratingtype.select', this.select);
+      this.$root.eventHub.$on('content.toggle', this.filterContent);
+    },
+    methods: {
+      needShow(type, text) {
+        if (this.onlyContent && !text) {
+          return false;
+        }
+        if (this.selectType === ALL) {
+          return true;
+        } else {
+          return type === this.selectType;
+        }
+      },
+      select(type) {
+        this.selectType = type;
+        this.$nextTick(() => {
+          this.ratingsScroll.refresh();
+        });
+      },
+      filterContent(ifOnly) {
+        this.onlyContent = ifOnly;
+        this.$nextTick(() => {
+          this.ratingsScroll.refresh();
+        });
+      }
     },
     components: {
       star,
