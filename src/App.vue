@@ -19,20 +19,26 @@
 <script>
 import header from 'components/header/header';
 import axios from 'axios';
+import {urlParse} from 'common/js/utils';
 
 const ERR_OK = 0;
 
 export default {
   data() {
     return {
-      seller: {}
+      seller: {
+        id: (() => {
+          let queryParam = urlParse();
+          console.log(queryParam);
+          return queryParam.id;
+        })()
+      }
     };
   },
   created() {
-    axios.get('api/seller').then((res) => {
+    axios.get('api/seller?id=' + this.seller.id).then((res) => {
       if (res.data.errorno === ERR_OK) {
-        this.seller = res.data.data;
-        console.log(this.seller);
+        this.seller = Object.assign({}, this.seller, res.data.data);
       }
     });
   },
