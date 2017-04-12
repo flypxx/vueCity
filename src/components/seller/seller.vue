@@ -51,7 +51,17 @@
           </li>
         </ul>
       </div>
-
+      <split></split>
+      <div class="pics">
+        <h1 class="title">商家实景</h1>
+        <div class="pics-wrapper" ref="picsWrapper">
+          <ul class="pic-list" ref="picList">
+            <li class="pic-item" v-for="pic in seller.pics">
+              <img width="120" height="90" :src="pic">
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -73,6 +83,18 @@ export default {
         click: true
       });
     });
+    if (this.seller.pics) {
+      let imgWidth = 120;
+      let imgMargin = 6;
+      let ulWidth = (imgWidth + imgMargin) * this.seller.pics.length - imgMargin;
+      this.$refs.picList.style.width = ulWidth + 'px';
+      this.$nextTick(() => {
+        this.picsaBScroll = new BScroll(this.$refs.picsWrapper, {
+          scrollX: true,
+          evnetPassthrough: 'vertical'
+        });
+      });
+    }
   },
   components: {
     star,
@@ -175,6 +197,26 @@ export default {
             line-height 16px
             font-size 12px
             color rgb(7, 17, 27)
+    .pics
+      padding 18px
+      .title
+        margin-bottom 12px
+        line-height 14px
+        font-size 14px
+        color rgb(7, 17, 27)
+      .pics-wrapper
+        width 100%
+        overflow hidden
+        white-space nowrap
+        .pic-list
+          font-size 0
+          .pic-item
+            display inline-block
+            margin-right 6px
+            width 120px
+            height 90px
+            &:last-child
+              margin 0
 
 
 </style>
