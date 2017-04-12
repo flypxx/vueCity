@@ -70,7 +70,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.scroll = new BScroll(this.$refs.sellerScroll, {
-        click: ture
+        click: true
       });
     });
   },
@@ -151,6 +151,8 @@ export default {
           padding 16px 12px
           border-1px(rgba(7, 17, 27, 0.1))
           font-size 0
+          &:last-child
+            border-none()
           .icon
             display: inline-block
             vertical-align: top
