@@ -88,13 +88,16 @@
 import star from 'components/star/star';
 import split from 'components/split/split';
 import BScroll from 'better-scroll';
+import {setStorageItem, getStorageItem} from 'common/js/store';
 export default {
   props: {
     seller: Object
   },
   data() {
     return {
-      favorite: false
+      favorite: (() => {
+        return getStorageItem(this.seller.id, 'favorite', false);
+      })()
     }
   },
   computed: {
@@ -130,6 +133,8 @@ export default {
         return;
       }
       this.favorite = !this.favorite;
+      console.log(this.seller);
+      setStorageItem(this.seller.id, 'favorite', this.favorite);
     }
   },
   components: {
