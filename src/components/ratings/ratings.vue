@@ -43,9 +43,7 @@
                    :src="rating.avatar">
             </div>
             <div class="content">
-              <h1 class="name">
-                  {{rating.username}}
-                </h1>
+              <h1 class="name">{{rating.username}}</h1>
               <div class="star-wrapper">
                 <star :size="24"
                       :score="rating.score"></star>
@@ -57,9 +55,7 @@
                    v-show="rating.recommend && rating.recommend.length">
                 <span class="icon-thumb_up"></span>
                 <span class="item"
-                      v-for="item in rating.recommend">
-                    {{item}}
-                  </span>
+                      v-for="item in rating.recommend">{{item}}</span>
               </div>
               <div class="time">{{rating.rateTime | formatTime}}</div>
             </div>
