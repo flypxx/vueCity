@@ -1,5 +1,6 @@
 <template>
-  <div class="ratings" ref="ratingsScroll">
+  <div class="ratings"
+       ref="ratingsScroll">
     <div class="ratings-content">
       <div class="overview">
         <div class="overview-left">
@@ -10,12 +11,14 @@
         <div class="overview-right">
           <div class="score-wrapper">
             <span class="title">服务态度</span>
-            <star :size="36" :score="seller.serviceScore"></star>
+            <star :size="36"
+                  :score="seller.serviceScore"></star>
             <span class="score">{{seller.serviceScore}}</span>
           </div>
           <div class="score-wrapper">
             <span class="title">商品评分</span>
-            <star :size="36" :score="seller.foodScore"></star>
+            <star :size="36"
+                  :score="seller.foodScore"></star>
             <span class="score">{{seller.foodScore}}</span>
           </div>
           <div class="delivery-wrapper">
@@ -25,27 +28,38 @@
         </div>
       </div>
       <split></split>
-      <ratingselect :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="ratings"></ratingselect>
+      <ratingselect :select-type="selectType"
+                    :only-content="onlyContent"
+                    :desc="desc"
+                    :ratings="ratings"></ratingselect>
       <div class="rating-wrapper">
         <ul>
-          <li class="rating-item border-1px" v-show="needShow(rating.rateType, rating.text)" v-for="rating in ratings">
+          <li class="rating-item border-1px"
+              v-show="needShow(rating.rateType, rating.text)"
+              v-for="rating in ratings">
             <div class="avatar">
-              <img width="28" height="28" :src="rating.avatar">
+              <img width="28"
+                   height="28"
+                   :src="rating.avatar">
             </div>
             <div class="content">
               <h1 class="name">
-                {{rating.username}}
-              </h1>
+                  {{rating.username}}
+                </h1>
               <div class="star-wrapper">
-                <star :size="24" :score="rating.score"></star>
-                <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}分钟送达</span>
+                <star :size="24"
+                      :score="rating.score"></star>
+                <span class="delivery"
+                      v-show="rating.deliveryTime">{{rating.deliveryTime}}分钟送达</span>
               </div>
               <p class="text">{{rating.text}}</p>
-              <div class="recommend" v-show="rating.recommend && rating.recommend.length">
+              <div class="recommend"
+                   v-show="rating.recommend && rating.recommend.length">
                 <span class="icon-thumb_up"></span>
-                <span class="item" v-for="item in rating.recommend">
-                  {{item}}
-                </span>
+                <span class="item"
+                      v-for="item in rating.recommend">
+                    {{item}}
+                  </span>
               </div>
               <div class="time">{{rating.rateTime | formatTime}}</div>
             </div>
@@ -57,82 +71,90 @@
 </template>
 
 <script type="ecmascript-6">
-  import Vue from 'vue';
-  import star from 'components/star/star';
-  import split from 'components/split/split';
-  import ratingselect from 'components/ratingselect/ratingselect';
-  import axios from 'axios';
-  import BScroll from 'better-scroll';
-  import {dateFormat} from 'common/js/date';
+import Vue from 'vue';
+import star from 'components/star/star';
+import split from 'components/split/split';
+import ratingselect from 'components/ratingselect/ratingselect';
+import axios from 'axios';
+import BScroll from 'better-scroll';
+import { dateFormat } from 'common/js/date';
 
-  const ERR_OK = 0;
-  const ALL = 2;
+const ERR_OK = 0;
+const ALL = 2;
 
-  Vue.filter('formatTime', function(value) {
-    return dateFormat(new Date(value), 'yyyy-MM-dd hh:mm');
-  });
+Vue.filter('formatTime', function (value) {
+  return dateFormat(new Date(value), 'yyyy-MM-dd hh:mm');
+});
 
-  export default {
-    props: {
-      seller: Object
-    },
-    data() {
-      return {
-        ratings: [],
-        selectType: ALL,
-        onlyContent: true,
-        desc: {
-          all: '全部',
-          positive: '推荐',
-          negative: '吐槽'
-        }
-      };
-    },
-    created() {
-      axios.get('api/ratings').then((res) => {
-        console.log(res);
-        if (res.data.errorno === ERR_OK) {
-          this.ratings = res.data.data;
-          this.$nextTick(() => {
+export default {
+  props: {
+    seller: Object
+  },
+  data() {
+    return {
+      ratings: [],
+      selectType: ALL,
+      onlyContent: true,
+      desc: {
+        all: '全部',
+        positive: '推荐',
+        negative: '吐槽'
+      }
+    };
+  },
+  created() {
+    axios.get('api/ratings').then((res) => {
+      console.log(res);
+      if (res.data.errorno === ERR_OK) {
+        this.ratings = res.data.data;
+        this.$nextTick(() => {
+          if (!this.ratingsScroll) {
             this.ratingsScroll = new BScroll(this.$refs.ratingsScroll, {
               click: true
             });
-          });
-        }
-      });
-      this.$root.eventHub.$on('ratingtype.select', this.select);
-      this.$root.eventHub.$on('content.toggle', this.filterContent);
-    },
-    methods: {
-      needShow(type, text) {
-        if (this.onlyContent && !text) {
-          return false;
-        }
-        if (this.selectType === ALL) {
-          return true;
-        } else {
-          return type === this.selectType;
-        }
-      },
-      select(type) {
-        this.selectType = type;
-        this.$nextTick(() => {
-          this.ratingsScroll.refresh();
-        });
-      },
-      filterContent(ifOnly) {
-        this.onlyContent = ifOnly;
-        this.$nextTick(() => {
-          this.ratingsScroll.refresh();
+          } else {
+            this.ratingsScroll.refresh();
+          }
         });
       }
+    });
+    this.$root.eventHub.$on('ratingtype.select', this.select);
+    this.$root.eventHub.$on('content.toggle', this.filterContent);
+  },
+  methods: {
+    needShow(type, text) {
+      if (this.onlyContent && !text) {
+        return false;
+      }
+      if (this.selectType === ALL) {
+        return true;
+      } else {
+        return type === this.selectType;
+      }
     },
-    components: {
-      star,
-      split,
-      ratingselect
+    select(type) {
+      this.selectType = type;
+      this.$nextTick(() => {
+        if (this.ratingsScroll) {
+          this.ratingsScroll.refresh();
+        }
+      });
+    },
+    filterContent(ifOnly) {
+      this.onlyContent = ifOnly;
+      this.$nextTick(() => {
+        if (this.ratingsScroll) {
+          this.ratingsScroll.refresh();
+        }
+      });
     }
-  };
+  },
+  components: {
+    star,
+    split,
+    ratingselect
+  }
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

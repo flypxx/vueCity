@@ -137,13 +137,17 @@ export default {
     select(type) {
       this.selectType = type;
       this.$nextTick(() => {
-        this.scroll.refresh();
+        if (this.scroll) {
+          this.scroll.refresh();
+        }
       });
     },
     filterContent(ifOnly) {
       this.onlyContent = ifOnly;
       this.$nextTick(() => {
-        this.scroll.refresh();
+        if (this.scroll) {
+          this.scroll.refresh();
+        }
       });
     }
   },
