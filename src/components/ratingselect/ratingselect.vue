@@ -1,76 +1,84 @@
 <template>
   <div class="ratingselect">
     <div class="rating-type border-1px">
-      <span @click="select(2, $event)" class="block positive" :class="selectType === 2 ? 'active' : ''">{{desc.all}}<span class="count">{{ratings.length}}</span></span>
-      <span @click="select(0, $event)" class="block positive" :class="selectType === 0 ? 'active' : ''">{{desc.positive}}<span class="count">{{positives.length}}</span></span>
-      <span @click="select(1, $event)" class="block negative" :class="selectType === 1 ? 'active' : ''">{{desc.negative}}<span class="count">{{negatives.length}}</span></span>
+      <span @click="select(2, $event)"
+            class="block positive"
+            :class="selectType === 2 ? 'active' : ''">{{desc.all}}<span class="count">{{ratings.length}}</span></span>
+      <span @click="select(0, $event)"
+            class="block positive"
+            :class="selectType === 0 ? 'active' : ''">{{desc.positive}}<span class="count">{{positives.length}}</span></span>
+      <span @click="select(1, $event)"
+            class="block negative"
+            :class="selectType === 1 ? 'active' : ''">{{desc.negative}}<span class="count">{{negatives.length}}</span></span>
     </div>
-    <div @click="toggleContent" class="switch" :class="{'on':onlyContent}">
+    <div @click="toggleContent"
+         class="switch"
+         :class="{'on':onlyContent}">
       <span class="icon-check_circle"></span>
       <span class="text">只看内容和评价</span>
     </div>
   </div>
 </template>
 <script type="ecmascript-6">
-  const POSITIVE = 0;
-  const NEGATIVE = 1;
-  const ALL = 2;
-  export default {
-    props: {
-      ratings: {
-        type: Array,
-        default() {
-          return [];
-        }
-      },
-      selectType: {
-        type: Number,
-        default: ALL
-      },
-      onlyContent: {
-        type: Boolean,
-        default() {
-          return false
-        }
-      },
-      desc: {
-        type: Object,
-        default() {
-          return {
-            all: '全部',
-            positive: '满意',
-            negative: '不满意'
-          };
-        }
+const POSITIVE = 0;
+const NEGATIVE = 1;
+const ALL = 2;
+export default {
+  props: {
+    ratings: {
+      type: Array,
+      default() {
+        return [];
       }
     },
-    computed: {
-      positives() {
-        return this.ratings.filter((rating) => {
-          return rating.rateType === POSITIVE;
-        });
-      },
-      negatives() {
-        return this.ratings.filter((rating) => {
-          return rating.rateType === NEGATIVE;
-        });
+    selectType: {
+      type: Number,
+      default: ALL
+    },
+    onlyContent: {
+      type: Boolean,
+      default() {
+        return false
       }
     },
-    methods: {
-      select(type, event) {
-        if (!event._constructed) {
-          return;
-        }
-        this.$root.eventHub.$emit('ratingtype.select', type);
-      },
-      toggleContent(event) {
-        if (!event._constructed) {
-          return;
-        }
-        this.$root.eventHub.$emit('content.toggle', !this.onlyContent);
+    desc: {
+      type: Object,
+      default() {
+        return {
+          all: '全部',
+          positive: '满意',
+          negative: '不满意'
+        };
       }
     }
-  };
+  },
+  computed: {
+    positives() {
+      return this.ratings.filter((rating) => {
+        return rating.rateType === POSITIVE;
+      });
+    },
+    negatives() {
+      return this.ratings.filter((rating) => {
+        return rating.rateType === NEGATIVE;
+      });
+    }
+  },
+  methods: {
+    select(type, event) {
+      if (!event._constructed) {
+        return;
+      }
+      this.$root.eventHub.$emit('ratingtype.select', type);
+    },
+    toggleContent(event) {
+      if (!event._constructed) {
+        return;
+      }
+      this.$root.eventHub.$emit('content.toggle', !this.onlyContent);
+    }
+  }
+};
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @import '../../common/stylus/mixin.styl'

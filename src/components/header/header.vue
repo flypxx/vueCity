@@ -41,7 +41,7 @@
     </div>
     <transition name="fade">
       <div v-show="detailShow"
-          class="detail">
+           class="detail">
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
             <h1 class="name">{{seller.name}}</h1>
@@ -73,7 +73,8 @@
             </div>
           </div>
         </div>
-        <div class="detail-close" @click="hideDetail">
+        <div class="detail-close"
+             @click="hideDetail">
           <i class="icon-close"></i>
         </div>
       </div>
