@@ -2,21 +2,26 @@
   <div>
     <div class="shopcart">
       <div class="content">
-        <div class="content-left" @click="listToggle">
+        <div class="content-left"
+             @click="listToggle">
           <div class="logo-wrapper">
-            <div class="num" v-show="totalCount">
+            <div class="num"
+                 v-show="totalCount">
               {{totalCount}}
             </div>
-            <div class="logo" :class="{'active':totalCount}">
+            <div class="logo"
+                 :class="{'active':totalCount}">
               <i class="icon-shopping_cart"></i>
             </div>
           </div>
-          <div class="price" :class="{'active':totalCount}">￥{{totalPrice}}</div>
+          <div class="price"
+               :class="{'active':totalCount}">￥{{totalPrice}}</div>
           <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
         </div>
-        <div class="content-right" @click.stop.prevent="pay">
+        <div class="content-right"
+             @click.stop.prevent="pay">
           <div class="pay"
-              :class="payClass">
+               :class="payClass">
             {{payDesc}}
           </div>
         </div>
@@ -29,20 +34,24 @@
                     @after-enter="afterEnter"
                     :key="ball.id">
           <div class="ball"
-              v-show="ball.show">
+               v-show="ball.show">
             <div class="inner inner-hock"></div>
           </div>
         </transition>
       </div>
       <transition name="showCartList">
-        <div class="shopcart-list" v-show="listShow">
+        <div class="shopcart-list"
+             v-show="listShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty" @click="empty">清空</span>
+            <span class="empty"
+                  @click="empty">清空</span>
           </div>
-          <div class="list-content" ref="foodlistscroll">
+          <div class="list-content"
+               ref="foodlistscroll">
             <ul>
-              <li class="food" v-for="food in selectFoods">
+              <li class="food"
+                  v-for="food in selectFoods">
                 <span class="name">{{food.name}}</span>
                 <div class="price">
                   <span>￥{{food.price*food.count}}</span>
@@ -57,7 +66,9 @@
       </transition>
     </div>
     <transition name="fade-bg">
-      <div class="bg" v-show="listShow" @click="listHide"></div>
+      <div class="bg"
+           v-show="listShow"
+           @click="listHide"></div>
     </transition>
   </div>
 </template>

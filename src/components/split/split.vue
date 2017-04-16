@@ -1,8 +1,9 @@
 <template>
-  <div class="split"></div>
+  <div class="split">
+  </div>
 </template>
 <script type="ecmascript-6">
-  export default {};
+export default {};
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   .split

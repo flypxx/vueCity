@@ -21,7 +21,7 @@
 <script>
 import header from 'components/header/header';
 import axios from 'axios';
-import {urlParse} from 'common/js/utils';
+import { urlParse } from 'common/js/utils';
 
 const ERR_OK = 0;
 

@@ -31,16 +31,18 @@
             </div>
           </li>
         </ul>
-        <div class="favorite" @click="toggleFavorite">
-          <span class="icon-favorite" :class="{'active': favorite}"></span>
+        <div class="favorite"
+             @click="toggleFavorite">
+          <span class="icon-favorite"
+                :class="{'active': favorite}"></span>
           <span class="text">{{favoriteText}}</span>
         </div>
       </div>
       <split></split>
       <div class="bulletin">
         <h1 class="title">
-              公告与活动
-            </h1>
+                公告与活动
+              </h1>
         <div class="content-wrapper">
           <p class="content">
             {{seller.bulletin}}
@@ -88,7 +90,7 @@
 import star from 'components/star/star';
 import split from 'components/split/split';
 import BScroll from 'better-scroll';
-import {setStorageItem, getStorageItem} from 'common/js/store';
+import { setStorageItem, getStorageItem } from 'common/js/store';
 export default {
   props: {
     seller: Object
