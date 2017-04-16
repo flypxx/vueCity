@@ -41,22 +41,30 @@
         <split></split>
         <div class="rating">
           <h1 class="title">商品评价</h1>
-          <ratingselect :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="food.ratings"></ratingselect>
+          <ratingselect :select-type="selectType"
+                        :only-content="onlyContent"
+                        :desc="desc"
+                        :ratings="food.ratings"></ratingselect>
           <div class="ratings-wrapper">
             <ul v-show="food.ratings && food.ratings.length">
-              <li v-for="rating in food.ratings" v-show="needShow(rating.rateType, rating.text)" class="rating-item border-1px">
+              <li v-for="rating in food.ratings"
+                  v-show="needShow(rating.rateType, rating.text)"
+                  class="rating-item border-1px">
                 <div class="user">
                   <span class="name">{{rating.username}}</span>
-                  <img :src="rating.avatar" width="12" height="12" class="avatar">
+                  <img :src="rating.avatar"
+                       width="12"
+                       height="12"
+                       class="avatar">
                 </div>
                 <div class="time">{{rating.rateTime|formatTime}}</div>
                 <p class="text">
-                  <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
-                  {{rating.text}}
+                  <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span> {{rating.text}}
                 </p>
               </li>
             </ul>
-            <div v-show="!food.ratings || !food.ratings.length" class="no-rating">暂无评价</div>
+            <div v-show="!food.ratings || !food.ratings.length"
+                 class="no-rating">暂无评价</div>
           </div>
         </div>
       </div>
@@ -69,9 +77,9 @@ import Vue from 'vue';
 import cartcontrol from 'components/cartcontrol/cartcontrol';
 import split from 'components/split/split';
 import ratingselect from 'components/ratingselect/ratingselect';
-import {dateFormat} from 'common/js/date';
+import { dateFormat } from 'common/js/date';
 
-Vue.filter('formatTime', function(value) {
+Vue.filter('formatTime', function (value) {
   return dateFormat(new Date(value), 'yyyy-MM-dd hh:mm');
 });
 
